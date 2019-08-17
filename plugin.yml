@@ -1,0 +1,16 @@
+name: GenerateStructureToWorld
+main: GenerateStructureToWorld\Main
+version: 1.0.0
+api: [3.0.0]
+commands:
+  generate:
+    description: "Generate Structure"
+    usage: "/generate [directory name]"
+    permission: generate.command
+  create:
+    description: "create structure json"
+    usage: "/create [directory name]"
+    permission: generate.command
+permissions:
+  generate.command:
+    default: op
