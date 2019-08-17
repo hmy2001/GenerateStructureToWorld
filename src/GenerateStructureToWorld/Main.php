@@ -120,7 +120,7 @@ class Main extends PluginBase{
 		return true;
 	}
 
-	public function generateStructure(string $directoryName, string $directory){//TODO: startX, startY, startZ
+	private function generateStructure(string $directoryName, string $directory){//TODO: startX, startY, startZ
 		$this->getServer()->broadcastMessage("Generating structure json: ".$directoryName);
 		$startX = 300;
 		$startY = 50;
@@ -137,7 +137,7 @@ class Main extends PluginBase{
 		$this->getServer()->broadcastMessage("Generated structure json: ".$directoryName);
 	}
 
-	public function createStructureJson(string $directoryName, string $directory){
+	private function createStructureJson(string $directoryName, string $directory){
 		$this->getServer()->broadcastMessage("Creating structure json: ".$directoryName);
 		$structureData = $this->getStructureData($directory);
 		file_put_contents($this->getDataFolder().$directoryName.".json", json_encode($structureData, JSON_PRETTY_PRINT));
