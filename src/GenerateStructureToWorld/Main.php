@@ -132,6 +132,8 @@ class Main extends PluginBase{
 			$z = $startZ + $data[2];
 			$this->getServer()->getDefaultLevel()->setBlockIdAt($x, $y, $z, $data[3]);
 			$this->getServer()->getDefaultLevel()->setBlockDataAt($x, $y, $z, $data[4]);
+			//$this->getServer()->getDefaultLevel()->setBlockLightAt($x, $y, $z, 15);
+			//$this->getServer()->getDefaultLevel()->setBlockSkyLightAt($x, $y, $z, 15);
 			//TODO: update light
 		}
 		$this->getServer()->broadcastMessage("Generated structure json: ".$directoryName);
