@@ -202,17 +202,9 @@ class Main extends PluginBase{
 			}
 		}
 
-		/*var_dump([$minX, $minY, $minZ]);
-
-		$minX = abs($minX);
-		$minY = abs($minY);
-		$minZ = abs($minZ);
-
-		var_dump([$minX, $minY, $minZ]);*/
-
 		$sortedStructureData = [];
 		foreach($structureData as $data){
-			$sortedStructureData[] = [$data[0] - $minX, $data[1] + $minY, $data[2] - $minZ, $data[3], $data[4]];
+			$sortedStructureData[] = [$data[0] - $minX, $data[1] - $minY, $data[2] - $minZ, $data[3], $data[4]];
 		}
 
 		return $sortedStructureData;
