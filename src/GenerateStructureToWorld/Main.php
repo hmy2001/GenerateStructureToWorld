@@ -40,8 +40,8 @@ class Main extends PluginBase{
 			"red",
 			"black",
 		];
-		$this->woodColorData = [//TODO: check strict
-			"oak",//normal?
+		$this->woodColorData = [
+			"oak",
 			"spruce",
 			"birch",
 			"jungle",
@@ -251,9 +251,43 @@ class Main extends PluginBase{
 								//TODO: implement it
 							}*/
 						break;
+						case "minecraft:log":
+							if(isset($paletteData["states"]["old_log_type"])){
+								switch($paletteData["states"]["old_log_type"]){
+									case "oak":
+										$blockDamage = 0;
+									break;
+									case "spruce":
+										$blockDamage = 1;
+									break;
+									case "birch":
+										$blockDamage = 2;
+									break;
+									case "jungle":
+										$blockDamage = 3;
+									break;
+									default:
+										var_dump([$blockName => $paletteData["states"]]);
+									break;
+								}
+							}
+
+							if(isset($paletteData["states"]["pillar_axis"])){
+								switch($paletteData["states"]["pillar_axis"]){
+									case "x":
+										$blockDamage |= 0x04;
+									break;
+									case "y":
+									break;
+									case "z"://1000
+										$blockDamage |= 0x08;
+									break;
+								}
+							}
+						break;
 						case "minecraft:log2":
-							if(isset($paletteData["states"]["stone_brick_type"])){
-								switch($paletteData["states"]["stone_brick_type"]){
+							if(isset($paletteData["states"]["new_log_type"])){
+								switch($paletteData["states"]["new_log_type"]){
 									case "acacia":
 										$blockDamage = 0;
 									break;
@@ -266,20 +300,18 @@ class Main extends PluginBase{
 								}
 							}
 
-							//TODO: convert axis
-							/*if(isset($paletteData["states"]["pillar_axis"])){
+							if(isset($paletteData["states"]["pillar_axis"])){
 								switch($paletteData["states"]["pillar_axis"]){
 									case "x":
-
+										$blockDamage |= 0x04;
 									break;
 									case "y":
-
 									break;
-									case "z":
-
+									case "z"://1000
+										$blockDamage |= 0x08;
 									break;
 								}
-							}*/
+							}
 						break;
 						case "minecraft:wool":
 						case "minecraft:stained_hardened_clay":
@@ -370,9 +402,20 @@ class Main extends PluginBase{
 							//$blockId = 434;
 							var_dump([$blockName => $paletteData["states"]]);
 						break;
+						case "minecraft:oak_stairs":
 						case "minecraft:spruce_stairs":
+						case "minecraft:birch_stairs":
+						case "minecraft:jungle_stairs":
+						case "minecraft:acacia_stairs":
+						case "minecraft:dark_oak_stairs":
+						case "minecraft:stone_stairs":
+						case "minecraft:stone_brick_stairs":
 						case "minecraft:brick_stairs":
+						case "minecraft:nether_brick_stairs":
+						case "minecraft:sandstone_stairs":
+						case "minecraft:red_sandstone_stairs":
 						case "minecraft:quartz_stairs":
+						case "minecraft:purpur_stairs":
 							if(isset($paletteData["states"]["weirdo_direction"])){
 								$blockDamage = $paletteData["states"]["weirdo_direction"];
 							}
@@ -521,6 +564,8 @@ class Main extends PluginBase{
 						break;
 						/*case "minecraft:yellow_glazed_terracotta":
 						case "minecraft:piston":
+						case "minecraft:end_rod":
+						case "minecraft:pistonArmCollision":
 							if(isset($paletteData["states"]["facing_direction"])){
 								switch($paletteData["states"]["facing_direction"]){
 									case 0:
@@ -570,9 +615,6 @@ class Main extends PluginBase{
 									break;
 								}
 							}
-						break;
-						case "minecraft:pistonArmCollision":
-							$blockId = 0;
 						break;
 						case "minecraft:flower_pot":
 						case "minecraft:bedrock":
