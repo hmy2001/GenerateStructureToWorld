@@ -238,8 +238,24 @@ class Main extends PluginBase{
 						break;
 						case "minecraft:dirt":
 							if(isset($paletteData["states"]["dirt_type"])){
-								if($paletteData["states"]["dirt_type"] === "normal"){
-									$blockDamage = 0;
+								switch($paletteData["states"]["dirt_type"]){
+									case "normal":
+									break;
+									case "coarse":
+										$blockDamage = 1;
+									break;
+									default:
+										var_dump([$blockName => $paletteData["states"]]);
+									break;
+								}
+							}
+						break;
+						case "minecraft:planks":
+						case "minecraft:leaves":
+						case "minecraft:fence":
+							if(isset($paletteData["states"]["wood_type"])){
+								if(($key = array_search($paletteData["states"]["wood_type"], $this->woodColorData, true)) !== false){
+									$blockDamage = $key;
 								}else{
 									var_dump([$blockName => $paletteData["states"]]);
 								}
@@ -251,11 +267,11 @@ class Main extends PluginBase{
 								//TODO: implement it
 							}*/
 						break;
+
 						case "minecraft:log":
 							if(isset($paletteData["states"]["old_log_type"])){
 								switch($paletteData["states"]["old_log_type"]){
 									case "oak":
-										$blockDamage = 0;
 									break;
 									case "spruce":
 										$blockDamage = 1;
@@ -289,7 +305,6 @@ class Main extends PluginBase{
 							if(isset($paletteData["states"]["new_log_type"])){
 								switch($paletteData["states"]["new_log_type"]){
 									case "acacia":
-										$blockDamage = 0;
 									break;
 									case "dark_oak":
 										$blockDamage = 1;
@@ -302,12 +317,12 @@ class Main extends PluginBase{
 
 							if(isset($paletteData["states"]["pillar_axis"])){
 								switch($paletteData["states"]["pillar_axis"]){
-									case "x":
+									case "x"://1
 										$blockDamage |= 0x04;
 									break;
-									case "y":
+									case "y"://0
 									break;
-									case "z"://1000
+									case "z"://2
 										$blockDamage |= 0x08;
 									break;
 								}
@@ -326,17 +341,7 @@ class Main extends PluginBase{
 								}
 							}
 						break;
-						case "minecraft:fence":
-						case "minecraft:planks":
-						case "minecraft:leaves":
-							if(isset($paletteData["states"]["wood_type"])){
-								if(($key = array_search($paletteData["states"]["wood_type"], $this->woodColorData, true)) !== false){
-									$blockDamage = $key;
-								}else{
-									var_dump([$blockName => $paletteData["states"]]);
-								}
-							}
-						break;
+
 						case "minecraft:wooden_slab":
 						case "minecraft:double_wooden_slab":
 							if(isset($paletteData["states"]["wood_type"])){
@@ -430,7 +435,6 @@ class Main extends PluginBase{
 							if(isset($paletteData["states"]["stone_brick_type"])){
 								switch($paletteData["states"]["stone_brick_type"]){
 									case "default":
-										$blockDamage = 0;
 									break;
 									case "chiseled":
 										$blockDamage = 1;
@@ -464,7 +468,6 @@ class Main extends PluginBase{
 							if(isset($paletteData["states"]["prismarine_block_type"])){
 								switch($paletteData["states"]["prismarine_block_type"]){
 									case "default":
-										$blockDamage = 0;
 									break;
 									case "dark":
 										$blockDamage = 1;
@@ -510,7 +513,6 @@ class Main extends PluginBase{
 							if(isset($paletteData["states"]["stone_brick_type"])){
 								switch($paletteData["states"]["stone_brick_type"]){
 									case "default":
-										$blockDamage = 0;
 									break;
 									case "mossy":
 										$blockDamage = 1;
@@ -534,7 +536,6 @@ class Main extends PluginBase{
 							if(isset($paletteData["states"]["fill_level"])){
 								switch($paletteData["states"]["fill_level"]){
 									case 0:
-										$blockDamage = 0;
 									break;
 									case 1:
 									case 2:
@@ -616,8 +617,11 @@ class Main extends PluginBase{
 								}
 							}
 						break;
-						case "minecraft:flower_pot":
+						case "minecraft:grass":
+						case "minecraft:cobblestone":
 						case "minecraft:bedrock":
+						case "minecraft:flower_pot":
+						case "minecraft:reserved6":
 						break;
 						default:
 							if(!empty($paletteData["states"])){
