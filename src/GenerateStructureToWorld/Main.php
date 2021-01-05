@@ -14,7 +14,7 @@ use pocketmine\plugin\PluginBase;
 use const pocketmine\RESOURCE_PATH;
 
 class Main extends PluginBase{
-	private $legacyIdMap, $colorData = [], $woodColorData = [], $stoneTypeData = [], $cobbleStoneWallData = [], $stoneSlabTypeData = [];
+	private $legacyIdMap, $colorData = [], $woodTypeData = [], $stoneTypeData = [], $cobbleStoneWallTypeData = [], $stoneSlabTypeData = [];
 
 	public function onEnable(){
 		$this->legacyIdMap = json_decode(file_get_contents(RESOURCE_PATH . "vanilla/block_id_map.json"), true);
@@ -40,7 +40,7 @@ class Main extends PluginBase{
 			"red",
 			"black",
 		];
-		$this->woodColorData = [
+		$this->woodTypeData = [
 			"oak",
 			"spruce",
 			"birch",
@@ -57,7 +57,7 @@ class Main extends PluginBase{
 			"andesite",
 			"andesite_smooth"
 		];
-		$this->cobbleStoneWallData = [
+		$this->cobbleStoneWallTypeData = [
 			"cobblestone",
 			"mossy_cobblestone",
 			"granite",
@@ -254,7 +254,7 @@ class Main extends PluginBase{
 						case "minecraft:leaves":
 						case "minecraft:fence":
 							if(isset($paletteData["states"]["wood_type"])){
-								if(($key = array_search($paletteData["states"]["wood_type"], $this->woodColorData, true)) !== false){
+								if(($key = array_search($paletteData["states"]["wood_type"], $this->woodTypeData, true)) !== false){
 									$blockDamage = $key;
 								}else{
 									var_dump([$blockName => $paletteData["states"]]);
@@ -345,7 +345,7 @@ class Main extends PluginBase{
 						case "minecraft:wooden_slab":
 						case "minecraft:double_wooden_slab":
 							if(isset($paletteData["states"]["wood_type"])){
-								if(($key = array_search($paletteData["states"]["wood_type"], $this->woodColorData, true)) !== false){
+								if(($key = array_search($paletteData["states"]["wood_type"], $this->woodTypeData, true)) !== false){
 									$blockDamage = $key;
 								}else{
 									var_dump([$blockName => $paletteData["states"]]);
@@ -391,7 +391,7 @@ class Main extends PluginBase{
 						break;
 						case "minecraft:cobblestone_wall":
 							if(isset($paletteData["states"]["wall_block_type"])){
-								if(($key = array_search($paletteData["states"]["wall_block_type"], $this->cobbleStoneWallData, true)) !== false){
+								if(($key = array_search($paletteData["states"]["wall_block_type"], $this->cobbleStoneWallTypeData, true)) !== false){
 									$blockDamage = $key;
 								}else{
 									var_dump([$blockName => $paletteData["states"]]);
@@ -620,7 +620,10 @@ class Main extends PluginBase{
 						case "minecraft:grass":
 						case "minecraft:cobblestone":
 						case "minecraft:bedrock":
+						case "minecraft:gravel":
 						case "minecraft:flower_pot":
+						case "minecraft:info_update":
+						case "minecraft:info_update2":
 						case "minecraft:reserved6":
 						break;
 						default:
